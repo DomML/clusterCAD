@@ -8,3 +8,11 @@ notebooks/mibig/*
 screenlog.*
 clusterCAD/settings.py
 notebooks/*
+pipeline/data/aa_sequence_analysis/
+pipeline/data/antismash/raw
+pipeline/data_dl/mibig_gbk_4.0.tar.gz
+pipeline/data_dl/mibig_json_4.0.tar.gz
+pipeline/data_dl/antismash/*
+pipeline/data_dl/mibig/*
+pipeline/data_dl/mibig_gbk_4.0/*
+pipeline/data_dl/mibig_json_4.0/*
