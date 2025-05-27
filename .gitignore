@@ -8,6 +8,7 @@ notebooks/mibig/*
 screenlog.*
 clusterCAD/settings.py
 notebooks/*
+
 pipeline/data/aa_sequence_analysis/
 pipeline/data/antismash/raw
 pipeline/data_dl/mibig_gbk_4.0.tar.gz
@@ -16,3 +17,12 @@ pipeline/data_dl/antismash/*
 pipeline/data_dl/mibig/*
 pipeline/data_dl/mibig_gbk_4.0/*
 pipeline/data_dl/mibig_json_4.0/*
+celerybeat-schedule.db
+pipeline/data/clustercad2.0_production.tgz
+pipeline/data/mibig/raw/mibig_gbk_2.0/*
+pipeline/data/mibig/raw/mibig_json_2.0/*
+pipeline/data/mibig/mibig_*_2.0.tar.gz
+pipeline/data/database_loaded_placeholder
+
+pipeline/data/blast/*
+pipeline/data/*placeholder
