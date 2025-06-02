@@ -20,6 +20,7 @@ mibigpath = './data/mibig/raw/mibig_json_4.0'
 antismashpath = './data/antismash/raw' 
 print("Processing cluster types: Polyketide, NRP")
 mibigaccessions = getPKSNRPSAccessions(mibigpath)
+print("mibigaccessions", mibigaccessions)
 print('\n')
 
 # Reset database (comment out if you want to generate individual clusters without wiping the database)

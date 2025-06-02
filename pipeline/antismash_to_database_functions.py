@@ -501,17 +501,16 @@ def buildCluster(cluster, record):
 
 # If ever needed, Type I subclasses can be accessed at json_data['cluster']['polyketide'].get('synthases')[0]['subclass']
 def getPKSNRPSAccessions(filepath):
-    filelist = glob.glob(os.path.join(filepath, '*.json'))
-    print(filelist)
+    filelist = sorted(glob.glob(os.path.join(filepath, '*.json')))
+
     accessions = []
     for filename in filelist:
-        if "0000001" in filename:
-            print(filename)
         with open(filename) as json_file:
             json_data = json.load(json_file)
         try:
-            cluster_type = [c for c in json_data['biosynthesis']['classes']]
-            if 'Polyketide' in cluster_type or 'NRP' in cluster_type:
+            cluster_type = [c["class"] for c in json_data['biosynthesis']['classes']]
+            if {'Polyketide', 'NRP', "PKS"} & set(cluster_type):
+            # if 'Polyketide' in cluster_type or 'NRP' in cluster_type:
                 accession = os.path.basename(filename).strip('.json')
                 accessions.append(accession)
         except KeyError:
