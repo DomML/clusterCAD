@@ -26,3 +26,10 @@ pipeline/data/database_loaded_placeholder
 
 pipeline/data/blast/*
 pipeline/data/*placeholder
+pipeline/data/mibig/raw/mibig_gbk_4.0/*
+pipeline/data/mibig/raw/mibig_json_4.0/*
+
+pipeline/.bash_profile
+.bash_profile
+pipeline/data_dl/exemple.json
+pipeline/data_dl/exemple.py

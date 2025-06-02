@@ -3,6 +3,7 @@
 import os, sys
 import json
 import pickle
+from tqdm import tqdm
 
 from Bio import SeqIO
 from antismash_to_database_functions import buildCluster, getPKSNRPSAccessions
@@ -15,7 +16,7 @@ import pks.models
 
 # Identify valid type I modular PKSs and NRPS from MIBiG files
 print('Analyzing contents of MIBiG database.')
-mibigpath = './data/mibig/raw/mibig_json_2.0'
+mibigpath = './data/mibig/raw/mibig_json_4.0'
 antismashpath = './data/antismash/raw' 
 print("Processing cluster types: Polyketide, NRP")
 mibigaccessions = getPKSNRPSAccessions(mibigpath)
@@ -30,7 +31,7 @@ print('ClusterCAD database reset.\n')
 allknowncompounds = pickle.load(open('./data/compounds/all_known_products.p', 'rb'))
 
 # If you want a list of all the mibig accessions for clusters to be generated
-#print(mibigaccessions)
+print(mibigaccessions)
 
 #for accession in ['BGC0000031']: # Debug with Borreledin
 for accession in mibigaccessions:
@@ -38,6 +39,7 @@ for accession in mibigaccessions:
     # Use accession number to get paths to MIBiG and antiSMASH files
     mibigfile = os.path.join(mibigpath, accession + '.json')
     clusterfile = os.path.join(antismashpath, accession, accession + '.gbk')
+    print(clusterfile)
 
     # Read antiSMASH annotations for cluster
     try:
