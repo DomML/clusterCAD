@@ -14,7 +14,7 @@ class Compound(models.Model):
 
     def computeInchiKey(self):
         # returns the Inchi key for this compound
-        self.inchiKey = chem.InchiToInchiKey(chem.MolToInchi(chem.MolFromSmiles(self.smiles)))  
+        self.inchiKey = chem.InchiToInchiKey(chem.MolToInchi(chem.MolFromSmiles(self.smiles), options='-SNon'))  
         return self.inchiKey
 
     def mol(self):

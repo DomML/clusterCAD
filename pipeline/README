@@ -63,7 +63,7 @@ process_aa_analysis.py
 
 The folders `./data/corrections` and `./data/corrections/modified` will need to be created.
 
-These need to be done manually. Write JSON templates to the folder `./data/corrections` using the script `clustercad_templates.py`. Then the template JSON files can be manually updated. The changes to the database should be implemented using the script clustercad_corrections.py, which will update the database to reflect the contents of the JSON files.
+These need to be done manually. Write JSON templates to the folder `./data/corrections` using the script `clustercad_templates.py`. Then the template JSON files can be manually updated. The changes to the database should be implemented using the script `clustercad_corrections.py`, which will update the database to reflect the contents of the JSON files.
 
 
 # 🧹 Clean up ClusterCAD entries #

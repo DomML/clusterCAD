@@ -17,7 +17,7 @@
     <div class="col-md-3 col-sm-4">
         <dl>
             <dt>MIBiG accession</dt>
-            <dd><a target="_blank" href="http://mibig.secondarymetabolites.org/repository/{{ cluster.mibigAccession|stripTrailingVersion }}/index.html#cluster-1">{{ cluster.mibigAccession }}</a></dd>
+            <dd><a target="_blank" href="http://mibig.secondarymetabolites.org/repository/{{ cluster.mibigAccession|stripTrailingVersion }}.{{ cluster.mibigVersion|stripTrailingVersion }}/index.html#cluster-1">{{ cluster.mibigAccession }}.{{ cluster.mibigVersion|stripTrailingVersion }}</a></dd>
 
             <dt>GenBank accession</dt>
             <dd><a target="_blank" href="https://www.ncbi.nlm.nih.gov/nuccore/{{ cluster.genbankAccession|stripTrailingVersion }}">{{ cluster.genbankAccession }}</a></dd>

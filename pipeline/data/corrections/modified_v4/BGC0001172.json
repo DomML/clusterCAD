@@ -1,0 +1,47 @@
+{
+    "description": "Chlorizidine A",
+    "genbankAccession": "KF585133.1",
+    "mibigAccession": "BGC0001172.1",
+    "architecture": {
+        "clz6": {
+            "0": {
+                "domains": {
+                    "AT": {
+                        "substrate": "DCP"
+                    }
+                },
+                "iterations": 1
+            },
+            "1": {
+                "domains": {
+                    "AT": {
+                        "substrate": "DCP"
+                    },
+                    "DH": {
+                        "active": true
+                    },
+                    "KR": {
+                        "active": true,
+                        "type": "C1"
+                    }
+                },
+                "iterations": 1
+            }
+        },
+        "clz7": {
+            "0": {
+                "domains": {
+                    "AT": {
+                        "substrate": "mal"
+                    },
+                    "R": {
+                        "active": true,
+                        "type": "unusual: see notes"
+                    }
+                },
+                "iterations": 1
+            }
+        }
+    },
+    "notes": "R domain catalyzes unusual intramolecular condensation reaction. Reference(s): https://doi.org/10.1021/ja409520v"
+}

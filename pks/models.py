@@ -15,6 +15,7 @@ class Cluster(models.Model):
 
     # Properties
         mibigAccession: str. MIBiG accession number.
+        mibigVersion: str. MIBiG version number.
         genbankAccession: str. GenBank accession number.
         description: str. known natural product of cluster.
         sequence: str. nucleotide sequence of cluster.
@@ -40,6 +41,7 @@ class Cluster(models.Model):
                         Template JSON file should be generated using clusterJSON.
     '''
     mibigAccession = models.CharField(max_length=100, primary_key=True)
+    mibigVersion = models.CharField(max_length=100, default='1')
     genbankAccession = models.CharField(max_length=100)
     description = models.TextField()
     sequence = models.TextField()

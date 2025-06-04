@@ -5,6 +5,8 @@ import json
 import pickle
 from tqdm import tqdm
 
+import traceback
+
 from Bio import SeqIO
 from antismash_to_database_functions import buildCluster, getPKSNRPSAccessions
 
@@ -20,7 +22,6 @@ mibigpath = './data/mibig/raw/mibig_json_4.0'
 antismashpath = './data/antismash/raw' 
 print("Processing cluster types: Polyketide, NRP")
 mibigaccessions = getPKSNRPSAccessions(mibigpath)
-print("mibigaccessions", mibigaccessions)
 print('\n')
 
 # Reset database (comment out if you want to generate individual clusters without wiping the database)
@@ -32,19 +33,23 @@ print('ClusterCAD database reset.\n')
 allknowncompounds = pickle.load(open('./data/compounds/all_known_products.p', 'rb'))
 
 # If you want a list of all the mibig accessions for clusters to be generated
-print(mibigaccessions)
+# print(mibigaccessions)
 
 #for accession in ['BGC0000031']: # Debug with Borreledin
-for accession in mibigaccessions:
+mibig_count = len(mibigaccessions)
+print(mibigaccessions)
+for i, accession in enumerate(mibigaccessions[:10]):
+    print(f"\r{accession} : {i}/{mibig_count}", end='', flush=True, file=sys.stderr)
   
     # Use accession number to get paths to MIBiG and antiSMASH files
     mibigfile = os.path.join(mibigpath, accession + '.json')
     clusterfile = os.path.join(antismashpath, accession, accession + '.gbk')
-    print(clusterfile)
+    print("#01", mibigfile)
+    print("#01", clusterfile)
 
     # Read antiSMASH annotations for cluster
     try:
-        print("\n" + clusterfile)
+        print("\n#02 " + clusterfile)
         record = SeqIO.read(clusterfile, "genbank")
     
     # If file is missing, we skip the cluster
@@ -55,8 +60,9 @@ for accession in mibigaccessions:
     with open(mibigfile) as f:
         jsondata = json.loads(f.read())
         # Get compound name from MIBiG entry
-        clusterproduct = ', '.join([x['compound'] for x in jsondata['cluster']['compounds']])
-        gbkAccession = jsondata['cluster']['loci']['accession']
+        clusterproduct = ', '.join([x['name'] for x in jsondata['compounds']])
+        gbkAccession = jsondata['loci'][0]['accession']
+        mibigVersion = str(jsondata['version'])
 
     # Get compound information
     try:
@@ -64,7 +70,7 @@ for accession in mibigaccessions:
     
     # If compound is missing, we skip the cluster
     except KeyError:
-        print('Missing compound %s: %s.' %(accession, clusterproduct))
+        print('#03 Missing compound %s: %s.' %(accession, clusterproduct))
         continue
     # some clusters like 416 has a space at front of smiles string
     knownproductsmiles = compound[0][0].strip() 
@@ -76,10 +82,11 @@ for accession in mibigaccessions:
     try:
             # build cluster if not already exists (for testing pipeline purposes)
             #print(pks.models.Cluster.objects.filter(mibigAccession=str(accession)+".1"))
-        if len(pks.models.Cluster.objects.filter(mibigAccession=str(accession)+".1")) == 0:
+        if len(pks.models.Cluster.objects.filter(mibigAccession=str(accession)+"."+mibigVersion)) == 0:
             cluster = pks.models.Cluster(
                 genbankAccession=gbkAccession, \
                 mibigAccession=record.id, \
+                mibigVersion=mibigVersion, \
                 description=clusterproduct, \
                 sequence=record.seq,
                 knownProductSmiles=knownproductsmiles,
@@ -88,13 +95,14 @@ for accession in mibigaccessions:
             cluster.save()
             # Processes subunits and modules belonging to cluster
             buildCluster(cluster, record)
-            print('Processed cluster %s: %s.' %(record.id, clusterproduct))
+            print('#04 Processed cluster %s: %s.' %(record.id, clusterproduct))
             cluster.computeProduct()
-            print('Pregenerated cluster products.')
+            print('#05 Pregenerated cluster products.')
         else:
-            print("Cluster already exists. Please delete if regeneration desired. ")
+            print("#06 Cluster already exists. Please delete if regeneration desired. ")
     except Exception as e:
-        print(e)
+        print("#07", e)
+        # traceback.print_exc()
         pass
 
 print("\nClusterCAD data successfully loaded. ")

@@ -29,7 +29,13 @@ pipeline/data/*placeholder
 pipeline/data/mibig/raw/mibig_gbk_4.0/*
 pipeline/data/mibig/raw/mibig_json_4.0/*
 
-pipeline/.bash_profile
+list_all.txt
 .bash_profile
+
+pipeline/.bash_profile
 pipeline/data_dl/exemple.json
 pipeline/data_dl/exemple.py
+pipeline/antismash_to_database.log
+pipeline/clustercad_corrections.log
+pipeline/process_aa_analysis.log
+pipeline/data/corrections/*.json

@@ -42,6 +42,8 @@ acc20_dict = file_to_dict(dirname, 'dataset.acc20', 'int')
 ss_dict = file_to_dict(dirname, 'dataset.ss', 'str')
 ss8_dict = file_to_dict(dirname, 'dataset.ss8', 'str')
 
+print(ss8_dict)
+
 pickle.dump(acc_dict, open(os.path.join(dirname, 'acc_dict.p'), 'wb'))
 pickle.dump(acc20_dict, open(os.path.join(dirname, 'acc20_dict.p'), 'wb'))
 pickle.dump(ss_dict, open(os.path.join(dirname, 'ss_dict.p'), 'wb'))

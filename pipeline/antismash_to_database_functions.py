@@ -261,7 +261,7 @@ def buildCluster(cluster, record):
             #print(feature.qualifiers["locus_tag"])
             
             subunit_gbk_accession = feature.qualifiers["protein_id"][0]
-            
+
             # Subunit_alt_name saves "gene" to be used as the more common subunit name (e.g. eryAI) if available
             # Check for "gene" first so:
             # subunit_name can be overwritten by "locus_tag" (which module/domain could depend on) if applicable
@@ -284,7 +284,7 @@ def buildCluster(cluster, record):
 
             # Check if this subunit is on the complement (antisense) based on location [start,stop](+/-). 
             # If so, we need to reverse module order later because of reversed parsing order
-            subunit_sense = str(feature.location).split("]")[1]
+            subunit_sense = str(feature.location).split("]")[1][:3]
             
             # Check if this subunit shares a common name (alt_name) with another subunit in the same cluster
             # If so, append a "_1", "_2", etc. to distinguish them
@@ -368,7 +368,7 @@ def buildCluster(cluster, record):
         #print(subunit)
         
         #print(str(subunitdata[2])+"-"+str(subunitdata[3])) #location
-        #print(subunitdata[5]) # sense
+        # print("sense", subunitdata[5]) # sense
         
         # If available, use gene as subunit name since it's typically the common name
         #print(subunitdata[6])
@@ -509,11 +509,12 @@ def getPKSNRPSAccessions(filepath):
             json_data = json.load(json_file)
         try:
             cluster_type = [c["class"] for c in json_data['biosynthesis']['classes']]
-            if {'Polyketide', 'NRP', "PKS"} & set(cluster_type):
+            if {'Polyketide', 'NRP', 'NRPS', "PKS"} & set(cluster_type):
             # if 'Polyketide' in cluster_type or 'NRP' in cluster_type:
                 accession = os.path.basename(filename).strip('.json')
                 accessions.append(accession)
         except KeyError:
+            print("KE", filename, e)
             pass
         except Exception as e:
             print(e)

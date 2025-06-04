@@ -20,10 +20,12 @@ def index(request, show):
     try:
         if showAll:
             # get all PKS clusters
-            clusters = Cluster.objects.order_by('description')
+            # clusters = Cluster.objects.order_by('description')
+            clusters = Cluster.objects.order_by('mibigAccession')
         else:
             # get only manually reviewed PKS clusters
-            clusters = Cluster.objects.filter(reviewed=True).order_by('description')
+            # clusters = Cluster.objects.filter(reviewed=True).order_by('description')
+            clusters = Cluster.objects.filter(reviewed=True).order_by('mibigAccession')
     except Cluster.DoesNotExist:
         raise Http404
 
